@@ -63,9 +63,9 @@ public class TicTacToeGame {
     }
 
     static String checkWinner() {
-        for (int a = 0; a < 8; a++) {
+        for (int i = 0; i < 8; i++) {
             StringBuilder check = new StringBuilder();
-            switch (a) {
+            switch (i) {
                 case 0:
                     check.append(board[0]).append(board[1]).append(board[2]);
                     break;
@@ -98,11 +98,11 @@ public class TicTacToeGame {
             }
         }
 
-        for (int a = 0; a < 9; a++) {
-            if (Arrays.asList(board).contains(String.valueOf(a+1))) {
+        for (int i = 0; i < 9; i++) {
+            if (Arrays.asList(board).contains(String.valueOf(i + 1))) {
                 break;
             }
-            else if (a == 8) return DRAW;
+            else if (i == 8) return DRAW;
         }
 
         System.out.println(turn + "'s turn; enter a slot number to place " + turn + " in:");
@@ -120,8 +120,8 @@ public class TicTacToeGame {
     }
 
     static void initializeGameBoard() {
-        for (int a = 0; a < 9; a++) {
-            board[a] = String.valueOf(a+1);
+        for (int i = 0; i < 9; i++) {
+            board[a] = String.valueOf(i + 1);
         }
     }
 }
