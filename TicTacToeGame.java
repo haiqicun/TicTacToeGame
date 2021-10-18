@@ -2,33 +2,33 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-/**
- *
- * @author Lian Li
- *
- */
 public class TicTacToeGame {
-    static final String PLAYERX = "X";
-    static final String PLAYER0 = "0";
-    static final String DRAW = "draw";
-    static final String WINSX = "XXX";
-    static final String WINS0 = "000";
-    static Scanner in;
-    static String[] board;
-    static String turn;
+    public static final String PLAYERX = "X";
+    public static final String PLAYER0 = "0";
+    public static final String DRAW = "draw";
+    public static final String WINSX = "XXX";
+    public static final String WINS0 = "000";
+    public static Scanner in;
+    public static String[] board;
+    public static String turn;
+    public String winner;
 
-    public static void main(String[] args) {
+    public TicTacToeGame() {
         in = new Scanner(System.in);
         board = new String[9];
-        turn = "X";
-        String winner = null;
-        initializeGameBoard();
+        turn = PLAYERX;
+        winner = null;
+    }
 
+    public void startGame() {
+        initializeGameBoard();
         System.out.println("Welcome to play the game: Tic Tac Toe");
         System.out.println("-------------------------------------");
         fillBoard();
         System.out.println("X's will play first. Enter a slot number to place X in:");
+    }
 
+    public void startPlay() {
         while (winner == null) {
             int inputNum;
             try {
@@ -43,11 +43,8 @@ public class TicTacToeGame {
             }
             if (board[inputNum-1].equals(String.valueOf(inputNum))) {
                 board[inputNum-1] = turn;
-                if (turn.equals(PLAYERX)) {
-                    turn = PLAYER0;
-                } else {
-                    turn = PLAYERX;
-                }
+                if (turn.equals(PLAYERX)) turn = PLAYER0;
+                else turn = PLAYERX;
                 fillBoard();
                 winner = checkWinner();
             } else {
@@ -62,7 +59,7 @@ public class TicTacToeGame {
         }
     }
 
-    static String checkWinner() {
+    private String checkWinner() {
         for (int i = 0; i < 8; i++) {
             StringBuilder check = new StringBuilder();
             switch (i) {
@@ -99,17 +96,15 @@ public class TicTacToeGame {
         }
 
         for (int i = 0; i < 9; i++) {
-            if (Arrays.asList(board).contains(String.valueOf(i + 1))) {
-                break;
-            }
-            else if (i == 8) return DRAW;
+            if (Arrays.asList(board).contains(String.valueOf(i+1))) break;
+            if (i == 8) return DRAW;
         }
 
         System.out.println(turn + "'s turn; enter a slot number to place " + turn + " in:");
         return null;
     }
 
-    static void fillBoard() {
+    private void fillBoard() {
         System.out.println("|---|---|---|");
         System.out.println("| " + board[0] + " | " + board[1] + " | " + board[2] + " |");
         System.out.println("|-----------|");
@@ -119,9 +114,15 @@ public class TicTacToeGame {
         System.out.println("|---|---|---|");
     }
 
-    static void initializeGameBoard() {
+    private void initializeGameBoard() {
         for (int i = 0; i < 9; i++) {
-            board[a] = String.valueOf(i + 1);
+            board[i] = String.valueOf(i+1);
         }
+    }
+
+    public static void main(String[] args) {
+        TicTacToeGame game = new TicTacToeGame();
+        game.startGame();
+        game.startPlay();
     }
 }
